@@ -6,16 +6,17 @@ import {
     X,
     Sun,
     Moon,
-
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { toggleTheme, initializeTheme, getCurrentTheme } from "../lib/theme";
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [currentTheme, setCurrentTheme] = useState<"dark" | "light">("light");
+    const pathname = usePathname();
 
     useEffect(() => {
         initializeTheme();
@@ -36,17 +37,26 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const navigationLinks = [
+        { href: "/", label: "Home" },
+        { href: "/offerings", label: "Offerings" },
+        { href: "/about", label: "About" },
+        { href: "/case-studies", label: "Case Studies" },
+        { href: "/contact", label: "Contact" },
+    ];
+
     return (
-        <div className={`fixed bg-bg-primary top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-            ? "backdrop-blur-xl border-b border-theme-border shadow-xl"
-            : "bg-transparent"}`} >
-            <nav className="border-b border-theme-border dark:bg-[#150A26]">
-                <div className="w-full h-auto mx-auto px-4 sm:px-6 lg:px-8 py-2 md:pt-4">
-                    <div className="flex items-center justify-between h-20">
-                        {/* Logo - Updated with bigger size and no background circle */}
+        <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+            ? "bg-bg-primary/95 backdrop-blur-xl border-b border-theme-border shadow-xl"
+            : "bg-bg-primary"
+            }`}>
+            <nav className="w-full">
+                <div className="max-w-9xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-16">
+                        {/* Logo */}
                         <Link href="/">
-                            <div className="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity duration-200 flex-shrink-0">
-                                <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0">
+                            <div className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity duration-200">
+                                <div className="relative w-12 h-12">
                                     <Image
                                         src={
                                             currentTheme === "dark"
@@ -59,7 +69,7 @@ export default function Navbar() {
                                         priority
                                     />
                                 </div>
-                                <div className="relative w-32 h-8 sm:w-40 sm:h-10 md:w-48 md:h-12 flex-shrink-0">
+                                <div className="relative w-32 h-6">
                                     <Image
                                         src={
                                             currentTheme === "dark"
@@ -75,42 +85,88 @@ export default function Navbar() {
                             </div>
                         </Link>
 
-                        <div className="text-center py-2 md:py-4 px-4 w-auto hidden sm:block">
-                            <p className="text-transparent text-gradient-static font-bold text-xs sm:text-sm md:text-lg whitespace-normal">
-                                REhumanizing Workplaces, One Emotionally Intelligent step at a time
-                            </p>
+                        {/* Desktop Navigation */}
+                        <div
+                            className={`hidden md:flex items-center space-x-4 px-6 py-1 rounded-full ${currentTheme === "dark"
+                                ? "bg-[#2B182B]/80"
+                                : "bg-gray-100"
+                                }`}
+                        >
+                            {navigationLinks.map((link) => {
+                                const isActive = pathname === link.href;
+                                return (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className={`transition-all duration-200 font-medium focus:outline-none focus:ring-0 ${isActive
+                                            ? currentTheme === "dark"
+                                                ? "bg-[#3A233A] text-white px-8 py-2 rounded-full shadow"
+                                                : "bg-white text-gray-900 px-8 py-2 rounded-full shadow"
+                                            : currentTheme === "dark"
+                                                ? "text-gray-200 px-8 py-2"
+                                                : "text-gray-700 px-8 py-2"
+                                            }`}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                );
+                            })}
                         </div>
 
-                        {/* Right side controls - Made more compact */}
-                        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-                            {/* Theme Toggle Button - Made more compact */}
+                        {/* Right side controls */}
+                        <div className="flex items-center gap-4">
+                            {/* Theme Toggle Button */}
                             <button
                                 onClick={handleThemeToggle}
-                                className="p-2.5 rounded-full transition-colors duration-300 bg-theme-card hover:bg-theme-card-hover text-theme-primary"
+                                className="p-2 rounded-full transition-colors duration-300 bg-theme-bg-secondary hover:bg-theme-border text-theme-primary"
                                 aria-label="Toggle Theme"
                             >
-                                <div className="flex items-center gap-1.5">
-                                    {currentTheme === "dark" ? (
-                                        <>
-                                            <Sun className="w-6 h-6" />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Moon className="w-6 h-6" />
-                                        </>
-                                    )}
-                                </div>
+                                {currentTheme === "dark" ? (
+                                    <Sun className="w-5 h-5" />
+                                ) : (
+                                    <Moon className="w-5 h-5" />
+                                )}
+                            </button>
+
+                            {/* Mobile Menu Button */}
+                            <button
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                className="md:hidden p-2 rounded-md text-theme-primary hover:bg-theme-bg-secondary transition-colors duration-200"
+                                aria-label="Toggle Mobile Menu"
+                            >
+                                {isMobileMenuOpen ? (
+                                    <X className="w-6 h-6" />
+                                ) : (
+                                    <Menu className="w-6 h-6" />
+                                )}
                             </button>
                         </div>
                     </div>
                 </div>
 
-                {/* <div className="text-center pb-2 md:pb-4 px-4 w-auto block sm:hidden">
-                    <p className="text-transparent text-gradient-static font-bold text-xs sm:text-sm md:text-lg whitespace-normal">
-                        REHumanizing Workplace, one emotionally intelligent step at a
-                        time
-                    </p>
-                </div> */}
+                {/* Mobile Navigation */}
+                {isMobileMenuOpen && (
+                    <div className="md:hidden border-t border-theme-border bg-bg-primary">
+                        <div className="px-4 py-3 space-y-3">
+                            {navigationLinks.map((link) => {
+                                const isActive = pathname === link.href;
+                                return (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className={`block py-2 px-3 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-0 ${isActive
+                                            ? "bg-white text-gray-900"
+                                            : "text-theme-primary hover:text-primary hover:bg-theme-bg-secondary"
+                                            }`}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
             </nav>
         </div>
     );
