@@ -43,6 +43,20 @@ export default {
                 "primary-hover": "#FF6F3C",
                 secondary: "#B8A9D1",
                 accent: "#FF4081",
+                
+                // Morphoverse custom colors
+                white: "#fff",
+                black: "#000",
+                purple: {
+                    "100": "#640d5f",
+                    "200": "rgba(100, 13, 95, 0.5)"
+                },
+                gainsboro: "#e3e0e0",
+                gray: {
+                    "100": "#fbfbfb",
+                    "200": "rgba(0, 0, 0, 0.54)"
+                },
+                orange: "#ffb200",
             },
             fontFamily: {
                 sans: ["Poppins", "Outfit", "Inter", "system-ui", "sans-serif"],
@@ -61,6 +75,10 @@ export default {
                 moneta: ["Moneta", "Playfair Display", "serif"],
                 theseasons: ["TheSeasons", "Playfair Display", "serif"],
                 gallient: ["Gallient", "Playfair Display", "serif"],
+                
+                // Morphoverse custom fonts
+                fustat: ["Fustat", "sans-serif"],
+                onest: ["Onest", "sans-serif"],
             },
             fontSize: {
                 hero: ["3.5rem", { lineHeight: "1.1" }],
