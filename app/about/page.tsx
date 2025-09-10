@@ -105,8 +105,8 @@ const AboutMorphoverse: NextPage = () => {
           <div className="w-32 h-16 flex items-center justify-center">
             <img src="/fres.png" alt="Fresenius Kabi" className="max-w-full max-h-full object-contain" style={{filter: 'invert(1) brightness(0) contrast(100)'}} />
           </div>
-          <div className="w-32 h-16 flex items-center justify-center">
-            <img src="/infosys.png" alt="Infosys" className="max-w-full max-h-full object-contain bg-white" style={{filter: 'invert(1) brightness(0.1) contrast(200)'}} />
+<div className="w-32 h-16 flex items-center justify-center">
+            <img src="/infosys.png" alt="Infosys" className="max-w-full max-h-full object-contain invert" />
           </div>
           <div className="w-32 h-16 flex items-center justify-center">
             <img src="/bajaj.png" alt="Bajaj" className="max-w-full max-h-full object-contain" style={{filter: 'invert(1) brightness(0) contrast(100)'}} />
@@ -241,7 +241,7 @@ const AboutMorphoverse: NextPage = () => {
         <div className="w-[43px] h-[43px] bg-white/20 rounded"></div>
       </div>
 
-      <div className="absolute top-[825px] left-[1067px] w-[78px] h-[78px] bg-gainsboro rounded-full z-30"></div>
+      
       
       {/* Navigation arrows placeholders */}
       <div className="absolute top-[1844px] left-[93px] w-[42px] h-[42px] bg-gainsboro rounded flex items-center justify-center">
