@@ -200,6 +200,58 @@ p {
 }
 
 /* ─────────────────────────────────────────
+   9.  Scrolling Logos Animation
+   ───────────────────────────────────────── */
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes infiniteScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-134px * 6)); /* Logo width (128px) + margin (6px) = 134px per logo */
+    }
+}
+
+.animate-scroll-logos {
+    animation: scrollLogos 20s linear infinite;
+}
+
+.animate-scroll-logos:hover {
+    animation-play-state: paused;
+}
+
+.animate-infinite-scroll {
+    animation: infiniteScroll 20s linear infinite;
+}
+
+.animate-infinite-scroll:hover {
+    animation-play-state: paused;
+}
+
+.hover\:pause-animation:hover {
+    animation-play-state: paused !important;
+}
+
+.pause-animation {
+    animation-play-state: paused !important;
+}
+
+/* Responsive scrolling speed */
+@media (max-width: 768px) {
+    .animate-scroll-logos {
+        animation-duration: 30s;
+    }
+}
+
+/* ─────────────────────────────────────────
    9.  Tailwind Utility Layer Extensions
    ───────────────────────────────────────── */
 @layer utilities {
@@ -399,7 +451,19 @@ p {
     }
 
     /* ————————————
-       9.10  Animation classes
+       9.10  Logo inversion for dark mode only
+       ———————————— */
+    .logo-dark-invert {
+        transition: filter 0.3s ease;
+        filter: invert(1) brightness(0) contrast(100%); /* Default: inverted in light mode */
+    }
+    
+    [data-theme="dark"] .logo-dark-invert {
+        filter: none !important; /* Dark mode: original colors */
+    }
+
+    /* ————————————
+       9.11  Animation classes
        ———————————— */
     .fade-in-up {
         opacity: 0;

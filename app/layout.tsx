@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Outfit, Playfair_Display } from "next/font/google";
+import { Poppins, Outfit, Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import ThreeDCanvas from "../components/3Dcanvas";
 import Navbar from "../components/Navbar";
@@ -21,6 +21,12 @@ const outfit = Outfit({
 const playfair = Playfair_Display({
     subsets: ["latin"],
     variable: "--font-playfair",
+    display: "swap",
+});
+
+const inter = Inter({
+    subsets: ["latin"],
+    variable: "--font-inter",
     display: "swap",
 });
 
@@ -77,7 +83,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${poppins.variable} ${outfit.variable} ${playfair.variable}`}
+            className={`${poppins.variable} ${outfit.variable} ${playfair.variable} ${inter.variable}`}
             data-theme="light"
         >
             <head>
