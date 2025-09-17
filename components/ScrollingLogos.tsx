@@ -30,10 +30,10 @@ const ScrollingLogos: React.FC<ScrollingLogosProps> = ({
     const gapSize = `calc((${availableSpace} - ${totalLogoSpace}px) / ${totalLogos + 1})`;
     
     return (
-        <div className={`relative overflow-hidden w-full ${className}`} style={{ height: '120px' }}>
+        <div className={`relative overflow-hidden w-full ${className} logo-scroll-container`} style={{ height: '120px' }}>
             {/* Create multiple sets for truly infinite scroll */}
             <div 
-                className="flex items-center hover:pause-animation"
+                className="flex items-center scroll-animation"
                 style={{
                     animation: `scroll-left ${speed}s linear infinite`,
                     gap: gapSize,
@@ -49,8 +49,8 @@ const ScrollingLogos: React.FC<ScrollingLogosProps> = ({
                             key={`${logo.alt}-set${setIndex}-${logoIndex}`}
                             className="flex-shrink-0 w-32 h-16 flex items-center justify-center group"
                             style={{
-                                marginLeft: '3px',
-                                marginRight: '3px',
+                                marginLeft: '12px',
+                                marginRight: '12px',
                             }}
                         >
                             <Image 
@@ -74,8 +74,11 @@ const ScrollingLogos: React.FC<ScrollingLogosProps> = ({
                         transform: translateX(-50%);
                     }
                 }
-                .hover\:pause-animation:hover {
+                .logo-scroll-container:hover .scroll-animation {
                     animation-play-state: paused;
+                }
+                .scroll-animation {
+                    animation-play-state: running;
                 }
             `}</style>
         </div>
