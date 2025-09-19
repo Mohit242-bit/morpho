@@ -4,41 +4,14 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import ScrollingLogos from '../../components/ScrollingLogos';
-import { getCurrentTheme } from '../../lib/theme';
+
 
 const AboutMorphoverse: NextPage = () => {
   const [isJourneyExpanded, setIsJourneyExpanded] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('light');
 
   const toggleJourney = () => {
     setIsJourneyExpanded(!isJourneyExpanded);
   };
-
-  // Listen for theme changes
-  useEffect(() => {
-    const updateTheme = () => {
-      setCurrentTheme(getCurrentTheme());
-    };
-
-    // Set initial theme
-    updateTheme();
-
-    // Listen for theme changes by observing data-theme attribute changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-          updateTheme();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme']
-    });
-
-    return () => observer.disconnect();
-  }, []);
   return (
     <div className="w-full relative bg-bg-primary min-h-screen overflow-hidden text-left text-xl text-theme-primary font-fustat transition-colors duration-300">
       
@@ -54,45 +27,35 @@ const AboutMorphoverse: NextPage = () => {
       
       {/* Navigation Bar - Responsive */}
       <div className="absolute top-4 md:top-10 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-2 md:px-4 z-50">
-        <div className="rounded-[32px] md:rounded-[63px] bg-bg-secondary h-[48px] md:h-[58px] flex items-center justify-between px-2 md:px-3">
+        <div className="rounded-[32px] md:rounded-[63px] bg-bg-secondary h-[48px] md:h-[58px] flex items-center justify-between px-2 md:px-3 data-[theme=dark]:bg-bg-primary">
           {/* Mobile Navigation */}
           <div className="flex md:hidden items-center justify-between w-full">
             <div className="rounded-[24px] bg-bg-primary px-3 py-1.5">
-              <div className="text-sm font-semibold tracking-[0.02em] leading-[100%] text-theme-primary">About</div>
+              <div className="text-sm font-semibold tracking-[0.02em] leading-[100%] text-theme-primary data-[theme=dark]:text-white">About</div>
             </div>
             <div className="flex items-center space-x-2 text-xs">
-              <div className="text-theme-secondary">Menu</div>
+              <div className="text-theme-secondary data-[theme=dark]:text-white">Menu</div>
               <div className="w-6 h-6 flex flex-col justify-center space-y-1">
-                <div className="w-4 h-0.5 bg-theme-secondary"></div>
-                <div className="w-4 h-0.5 bg-theme-secondary"></div>
-                <div className="w-4 h-0.5 bg-theme-secondary"></div>
+                <div className="w-4 h-0.5 bg-theme-secondary data-[theme=dark]:bg-white"></div>
+                <div className="w-4 h-0.5 bg-theme-secondary data-[theme=dark]:bg-white"></div>
+                <div className="w-4 h-0.5 bg-theme-secondary data-[theme=dark]:bg-white"></div>
               </div>
             </div>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="rounded-[41px] bg-bg-primary px-5 py-2.5">
-              <div className="text-[19px] font-semibold tracking-[0.02em] leading-[100%] text-theme-primary">Home</div>
-            </div>
-            <div className="px-5 py-2.5">
-              <div className="text-[19px] font-light tracking-[0.02em] leading-[100%] text-theme-secondary">Offerings</div>
-            </div>
-            <div className="px-5 py-2.5">
-              <div className="text-[19px] font-light tracking-[0.02em] leading-[100%] text-theme-secondary">About</div>
-            </div>
-            <div className="px-5 py-2.5">
-              <div className="text-[19px] font-light tracking-[0.02em] leading-[100%] text-theme-secondary">Case Studies</div>
-            </div>
-            <div className="px-5 py-2.5">
-              <div className="text-[19px] font-light tracking-[0.02em] leading-[100%] text-theme-secondary">Contact</div>
-            </div>
+            <button className="rounded-[41px] bg-bg-primary data-[theme=dark]:bg-bg-secondary px-5 py-2.5 text-[19px] font-semibold tracking-[0.02em] leading-[100%] text-theme-primary data-[theme=dark]:text-white">Home</button>
+            <button className="px-5 py-2.5 text-[19px] font-light tracking-[0.02em] leading-[100%] text-theme-secondary data-[theme=dark]:text-white">Offerings</button>
+            <button className="px-5 py-2.5 text-[19px] font-light tracking-[0.02em] leading-[100%] text-theme-secondary data-[theme=dark]:text-white">About</button>
+            <button className="px-5 py-2.5 text-[19px] font-light tracking-[0.02em] leading-[100%] text-theme-secondary data-[theme=dark]:text-white">Case Studies</button>
+            <button className="px-5 py-2.5 text-[19px] font-light tracking-[0.02em] leading-[100%] text-theme-secondary data-[theme=dark]:text-white">Contact</button>
           </div>
           
           {/* Desktop Login */}
           <div className="hidden md:flex items-center space-x-2">
-            <div className="px-5 py-2.5 text-theme-secondary">
-              <div className="text-[19px] font-light tracking-[0.02em] leading-[100%]">Log in</div>
+            <div className="px-5 py-2.5 text-theme-secondary data-[theme=dark]:text-white">
+              <div className="text-[19px] font-light tracking-[0.02em] leading-[100%] data-[theme=dark]:text-white">Log in</div>
             </div>
           </div>
         </div>
@@ -105,10 +68,21 @@ const AboutMorphoverse: NextPage = () => {
         <div className="md:hidden relative w-full h-full">
           {/* Main image container - pushed down 100px from original position */}
           <div className="absolute top-[100px] left-4 right-4 bottom-[100px] z-10">
+            {/* Light theme image */}
             <img 
-              src={currentTheme === 'dark' ? "/darkmobileabout1.png" : "/mobileabout1.png"}
+              src="/mobileabout1.png"
               alt="About section with background and profile"
-              className="w-full h-full object-contain object-top"
+              className="w-full h-full object-contain object-top theme-image-light"
+              width="800"
+              height="600"
+            />
+            {/* Dark theme image */}
+            <img 
+              src="/darkmobileabout1.png"
+              alt="About section with background and profile"
+              className="w-full h-full object-contain object-top theme-image-dark absolute inset-0"
+              width="800"
+              height="600"
             />
           </div>
           
@@ -155,6 +129,8 @@ const AboutMorphoverse: NextPage = () => {
                 { src: "/fres.png", alt: "Fresenius Kabi" },
                 { src: "/infosys.png", alt: "Infosys" },
                 { src: "/bajaj.png", alt: "Bajaj" },
+                { src: "/2g.png", alt: "2gethr" },
+
               ]}
               speed={100}
               className="w-full opacity-75"
@@ -167,10 +143,21 @@ const AboutMorphoverse: NextPage = () => {
           {/* Combined About.1 Image - Desktop */}
           <div className="absolute inset-0 w-full h-full z-10">
             <div className="absolute top-[-10px] left-[60px] right-[60px] bottom-0">
+              {/* Light theme image */}
               <img 
-                src={currentTheme === 'dark' ? "/darkabout1.png" : "/about1.png"}
+                src="/about1.png"
                 alt="About section with background and profile"
-                className="w-full h-full object-contain object-center"
+                className="w-full h-full object-contain object-center theme-image-light"
+                width="1600"
+                height="900"
+              />
+              {/* Dark theme image */}
+              <img 
+                src="/darkabout1.png"
+                alt="About section with background and profile"
+                className="w-full h-full object-contain object-center theme-image-dark absolute inset-0"
+                width="1600"
+                height="900"
               />
             </div>
           </div>
@@ -236,19 +223,39 @@ const AboutMorphoverse: NextPage = () => {
                   <div className="w-full block m-0 p-0">
                     <div className="relative">
                       {/* Journey content - explore.png - Mobile Responsive */}
-                      {/* Mobile Image */}
+                      {/* Mobile Images */}
                       <img 
-                        src={currentTheme === 'dark' ? "/darkmobileexplore.png" : "/mobileexplore.png"}
+                        src="/mobileexplore.png"
                         alt="Detailed journey exploration" 
-                        className="w-full h-auto block m-0 p-0 md:hidden"
+                        className="w-full h-auto block m-0 p-0 md:hidden theme-image-light"
                         style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
+                        width="800"
+                        height="600"
                       />
-                      {/* Desktop Image */}
                       <img 
-                        src={currentTheme === 'dark' ? "/darkexplore.png" : "/explore.png"}
+                        src="/darkmobileexplore.png"
                         alt="Detailed journey exploration" 
-                        className="w-full h-auto hidden md:block m-0 p-0"
+                        className="w-full h-auto block m-0 p-0 md:hidden theme-image-dark absolute inset-0"
                         style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
+                        width="800"
+                        height="600"
+                      />
+                      {/* Desktop Images */}
+                      <img 
+                        src="/explore.png"
+                        alt="Detailed journey exploration" 
+                        className="w-full h-auto hidden md:block m-0 p-0 theme-image-light"
+                        style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
+                        width="1600"
+                        height="900"
+                      />
+                      <img 
+                        src="/darkexplore.png"
+                        alt="Detailed journey exploration" 
+                        className="w-full h-auto hidden md:block m-0 p-0 theme-image-dark absolute inset-0"
+                        style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
+                        width="1600"
+                        height="900"
                       />
                       
                       {/* Hide my Journey button - responsive positioning */}
@@ -287,6 +294,7 @@ const AboutMorphoverse: NextPage = () => {
             { src: "/fres.png", alt: "Fresenius Kabi" },
             { src: "/infosys.png", alt: "Infosys" },
             { src: "/bajaj.png", alt: "Bajaj" },
+            { src: "/2g.png", alt: "2gethr" },
           ]}
           speed={100}
           className="w-full"
@@ -302,9 +310,7 @@ const AboutMorphoverse: NextPage = () => {
 
           {/* Avatar placeholders - responsive grid */}
           <div className="flex justify-center flex-wrap gap-3 md:gap-4">
-            {[1, 2, 3, 4, 5, 6].map((_, index) => (
-              <div key={index} className="w-12 h-12 md:w-20 md:h-20 bg-gainsboro rounded-full flex-shrink-0"></div>
-            ))}
+            <img src="/testi.png" alt="Testimonials" className="w-74 h-12 md:w-74 md:h-20 rounded-full object-cover" />
           </div>
 
           <h2 className="text-2xl md:text-[40px] font-medium text-center max-w-4xl mx-auto leading-[130%] tracking-[0.02em] text-theme-primary px-4">
@@ -387,12 +393,15 @@ const AboutMorphoverse: NextPage = () => {
       {/* CTA Section - Responsive */}
       <div className="relative text-white py-8 md:py-16 overflow-hidden h-auto md:h-screen min-h-[60vh] md:min-h-screen">
         {/* Background with image at bottom - Mobile Responsive */}
-        <div className="absolute bottom-0 left-0 right-0 h-[60vh] md:h-full">
-          {/* Mobile Image */}
-          <img src={currentTheme === 'dark' ? "/darkmobileending.png" : "/mobileending.png"} alt="Background" className="w-full h-full object-contain object-bottom mr-0 pr-0 md:hidden" style={{marginRight: 0, paddingRight: 0}} />
-          {/* Desktop Image */}
-          <img src={currentTheme === 'dark' ? "/darkending.png" : "/ending.png"} alt="Background" className="w-full h-full object-contain object-bottom mr-0 pr-0 hidden md:block" style={{marginRight: 0, paddingRight: 0}} />
-          
+        {/* Mobile Images - only visible on mobile */}
+        <div className="absolute bottom-0 left-0 right-0 h-[60vh] md:hidden">
+          <img src="/mobileending.png" alt="Background" className="w-full h-full object-contain object-bottom theme-image-light" width="800" height="600" />
+          <img src="/darkmobileending.png" alt="Background" className="w-full h-full object-contain object-bottom theme-image-dark absolute inset-0" width="800" height="600" />
+        </div>
+        {/* Desktop Images - only visible on desktop */}
+        <div className="absolute bottom-0 left-0 right-0 h-full hidden md:block">
+          <img src="/ending.png" alt="Background" className="w-full h-full object-contain object-bottom theme-image-light absolute inset-0" width="1600" height="900" />
+          <img src="/darkending.png" alt="Background" className="w-full h-full object-contain object-bottom theme-image-dark absolute inset-0" width="1600" height="900" />
         </div>
         
         {/* Text and Buttons - responsive positioning */}

@@ -88,6 +88,11 @@ export default function RootLayout({
         >
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+                {/* Preload critical LCP images for About page */}
+                <link rel="preload" as="image" href="/about1.png" />
+                <link rel="preload" as="image" href="/darkabout1.png" />
+                <link rel="preload" as="image" href="/mobileabout1.png" />
+                <link rel="preload" as="image" href="/darkmobileabout1.png" />
                 <script
                     dangerouslySetInnerHTML={{
                         __html: `

@@ -49,6 +49,25 @@
 }
 
 /* ─────────────────────────────────────────
+   4.  Theme-based Image Switching
+   ───────────────────────────────────────── */
+/* Light theme: show light images, hide dark images */
+.theme-image-light {
+    display: block !important;
+}
+.theme-image-dark {
+    display: none !important;
+}
+
+/* Dark theme: show dark images, hide light images */
+[data-theme="dark"] .theme-image-light {
+    display: none !important;
+}
+[data-theme="dark"] .theme-image-dark {
+    display: block !important;
+}
+
+/* ─────────────────────────────────────────
    4.  Global Element Resets
    ───────────────────────────────────────── */
 * {
