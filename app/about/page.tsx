@@ -66,8 +66,24 @@ const AboutMorphoverse: NextPage = () => {
       <div className="relative h-screen w-full pt-20 md:pt-32 pb-0 mb-0">
         {/* Mobile Layout */}
         <div className="md:hidden relative w-full h-full">
-          {/* Main image container - pushed down 100px from original position */}
-          <div className="absolute top-[100px] left-4 right-4 bottom-[100px] z-10">
+          {/* About Me Section - Mobile positioning moved up 300px from 25% to ~5% */}
+          <div className="absolute top-[12%] left-4 right-4 z-40 mt-2 px-2">
+            <div className="p-4">
+              <h1 className="text-2xl font-bold text-purple-100 leading-[130%] tracking-[0.02em] mb-4 text-center">
+                About me
+              </h1>
+              <div className="text-sm leading-[150%] tracking-[0.02em] font-semibold space-y-3 text-theme-primary">
+                <p className="m-0">
+                  From being a Data miner at an RPO to an organisational architect. Across every phase of my journey, I have found myself standing at the intersection of extremes — speed and depth, scale and connection, performance and purpose. Each pair taught me something unique, often by contrast.
+                </p>
+                <p className="m-0">
+                  Rather than choosing a side, I learned to design the bridge — toward wholeness, fairness, clarity, and growth.
+                </p>
+              </div>
+            </div>
+          </div>
+          {/* Main image container - pushed down 110px from original position */}
+          <div className="absolute top-[110px] left-4 right-4 z-10">
             {/* Light theme image */}
             <img 
               src="/mobileabout1.png"
@@ -80,47 +96,29 @@ const AboutMorphoverse: NextPage = () => {
             <img 
               src="/darkmobileabout1.png"
               alt="About section with background and profile"
-              className="w-full h-full object-contain object-top theme-image-dark absolute inset-0"
+              className="w-full h-full object-contain object-top theme-image-dark"
               width="800"
               height="600"
             />
-          </div>
-          
-          {/* About Me Section - Mobile positioning moved up 300px from 25% to ~5% */}
-          <div className="absolute top-[5%] left-4 right-4 z-40 mt-2 px-2">
-            <div className="p-4">
-              <h1 className="text-2xl font-bold text-purple-100 leading-[130%] tracking-[0.02em] mb-4 text-center">
-                About me
-              </h1>
-              
-              <div className="text-sm leading-[150%] tracking-[0.02em] font-semibold space-y-3 text-theme-primary">
-                <p className="m-0">
-                  From being a Data miner at an RPO to an organisational architect. Across every phase of my journey, I have found myself standing at the intersection of extremes — speed and depth, scale and connection, performance and purpose. Each pair taught me something unique, often by contrast.
-                </p>
-                <p className="m-0">
-                  Rather than choosing a side, I learned to design the bridge — toward wholeness, fairness, clarity, and growth.
-                </p>
+            {/* Explore my Journey button - positioned at the bottom center of the image */}
+            {!isJourneyExpanded && (
+              <div className="absolute bottom-[-20px] left-3 right-4 z-30 w-full flex justify-center">
+                <motion.button 
+                  onClick={toggleJourney}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-purple-100 data-[theme=dark]:bg-purple-600 text-white px-4 py-3 rounded-[32px] font-onest font-semibold text-sm hover:bg-purple-200 data-[theme=dark]:hover:bg-purple-500 transition-colors tracking-[0.02em] leading-[100%] flex items-center gap-2 shadow-lg"
+                >
+                  Explore my Journey
+                  <ChevronDown className="h-4 w-4" />
+                </motion.button>
               </div>
-            </div>
+            )}
           </div>
-          
-          {/* Explore my Journey button - moved 20px up to appear above mobileabout1.png */}
-          {!isJourneyExpanded && (
-            <div className="absolute bottom-[140px] left-1/2 transform -translate-x-1/2 z-30">
-              <motion.button 
-                onClick={toggleJourney}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-purple-100 data-[theme=dark]:bg-purple-600 text-white px-4 py-3 rounded-[32px] font-onest font-semibold text-sm hover:bg-purple-200 data-[theme=dark]:hover:bg-purple-500 transition-colors tracking-[0.02em] leading-[100%] flex items-center gap-2"
-              >
-                Explore my Journey
-                <ChevronDown className="h-4 w-4" />
-              </motion.button>
-            </div>
-          )}
-          
-          {/* Logo loop in bottom 100px space - Mobile only with margins */}
-          <div className="absolute bottom-0 left-0 right-0 h-[100px] z-20 flex items-center justify-center px-4">
+        </div>
+        {/* Logo loop in bottom 100px space - Mobile only, only when journey is NOT expanded */}
+        {!isJourneyExpanded && (
+          <div className="absolute bottom-0 left-0 right-0 h-[100px] z-20 flex items-center justify-center px-4 md:hidden mt-5">
             <ScrollingLogos 
               logos={[
                 { src: "/zeyta.png", alt: "Zeyta", className: "no-filter" },
@@ -130,32 +128,31 @@ const AboutMorphoverse: NextPage = () => {
                 { src: "/infosys.png", alt: "Infosys" },
                 { src: "/bajaj.png", alt: "Bajaj" },
                 { src: "/2g.png", alt: "2gethr" },
-
               ]}
               speed={100}
               className="w-full opacity-75"
             />
           </div>
-        </div>
+        )}
         
         {/* Desktop Layout - unchanged */}
         <div className="hidden md:block">
           {/* Combined About.1 Image - Desktop */}
           <div className="absolute inset-0 w-full h-full z-10">
             <div className="absolute top-[-10px] left-[60px] right-[60px] bottom-0">
-              {/* Light theme image */}
+              {/* Light theme image - Desktop only */}
               <img 
                 src="/about1.png"
                 alt="About section with background and profile"
-                className="w-full h-full object-contain object-center theme-image-light"
+                className="w-full h-full object-contain object-center theme-image-light hidden md:block"
                 width="1600"
                 height="900"
               />
-              {/* Dark theme image */}
+              {/* Dark theme image - Desktop only */}
               <img 
                 src="/darkabout1.png"
                 alt="About section with background and profile"
-                className="w-full h-full object-contain object-center theme-image-dark absolute inset-0"
+                className="w-full h-full object-contain object-center theme-image-dark absolute inset-0 hidden md:block"
                 width="1600"
                 height="900"
               />
@@ -209,7 +206,7 @@ const AboutMorphoverse: NextPage = () => {
             animate={{ opacity: 1, height: "auto", y: 0 }}
             exit={{ opacity: 0, height: 0, y: -100 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full bg-bg-primary -mt-4 md:-mt-8 overflow-hidden">
+            className="w-full bg-bg-primary -mt-40 md:-mt-8 overflow-hidden">
             {/* Responsive padding to match hero section */}
             <div className="px-4 md:px-[60px] pb-8 md:pb-16">
               <motion.div
@@ -222,42 +219,45 @@ const AboutMorphoverse: NextPage = () => {
                 <div className="w-full m-0 p-0">
                   <div className="w-full block m-0 p-0">
                     <div className="relative">
-                       {/* Desktop Images */}
-                      {/* Journey content - explore.png - Mobile Responsive */}
-                      {/* Mobile Images */}
-                      <img 
-                        src="/mobileexplore.png"
-                        alt="Detailed journey exploration" 
-                        className="w-full h-auto block md:hidden m-0 p-0 theme-image-light"
-                        style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
-                        width="800"
-                        height="600"
-                      />
-                      <img 
-                        src="/darkmobileexplore.png"
-                        alt="Detailed journey exploration" 
-                        className="w-full h-auto block md:hidden m-0 p-0 theme-image-dark absolute inset-0"
-                        style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
-                        width="800"
-                        height="600"
-                      />
-                      {/* Desktop Images */}
-                      <img 
-                        src="/explore.png"
-                        alt="Detailed journey exploration" 
-                        className="w-full h-auto hidden md:block m-0 p-0 theme-image-light"
-                        style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
-                        width="1600"
-                        height="900"
-                      />
-                      <img 
-                        src="/darkexplore.png"
-                        alt="Detailed journey exploration" 
-                        className="w-full h-auto hidden md:block m-0 p-0 theme-image-dark"
-                        style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
-                        width="1600"
-                        height="900"
-                      />
+                      {/* Journey content - explore.png - Responsive */}
+                      
+                      {/* Mobile Images - Mobile only */}
+                      <div className="md:hidden relative">
+                        <img 
+                          src="/mobileexplore.png"
+                          alt="Detailed journey exploration" 
+                          className="w-full h-auto theme-image-light block"
+                          width="800"
+                          height="600"
+                        />
+                        <img 
+                          src="/darkmobileexplore.png"
+                          alt="Detailed journey exploration" 
+                          className="w-full h-auto theme-image-dark block"
+                          width="800"
+                          height="600"
+                        />
+                      </div>
+                      
+                      {/* Desktop Images - Desktop only */}
+                      <div className="hidden md:block">
+                        <img 
+                          src="/explore.png"
+                          alt="Detailed journey exploration" 
+                          className="w-full h-auto m-0 p-0 theme-image-light"
+                          style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
+                          width="1600"
+                          height="900"
+                        />
+                        <img 
+                          src="/darkexplore.png"
+                          alt="Detailed journey exploration" 
+                          className="w-full h-auto m-0 p-0 theme-image-dark"
+                          style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
+                          width="1600"
+                          height="900"
+                        />
+                      </div>
                       
                       {/* Hide my Journey button - responsive positioning */}
                       <motion.div
@@ -280,6 +280,23 @@ const AboutMorphoverse: NextPage = () => {
                   </div>
                 </div>
               </motion.div>
+            </div>
+            
+            {/* Mobile Logo Section - shown after journey expansion */}
+            <div className="md:hidden py-8 opacity-75">
+              <ScrollingLogos 
+                logos={[
+                  { src: "/zeyta.png", alt: "Zeyta", className: "no-filter" },
+                  { src: "/simpliwork.png", alt: "Simpliwork" },
+                  { src: "/HCL-logo.png", alt: "HCL Tech" },
+                  { src: "/fres.png", alt: "Fresenius Kabi" },
+                  { src: "/infosys.png", alt: "Infosys" },
+                  { src: "/bajaj.png", alt: "Bajaj" },
+                  { src: "/2g.png", alt: "2gethr" },
+                ]}
+                speed={100}
+                className="w-full"
+              />
             </div>
           </motion.div>
         )}
