@@ -222,12 +222,13 @@ const AboutMorphoverse: NextPage = () => {
                 <div className="w-full m-0 p-0">
                   <div className="w-full block m-0 p-0">
                     <div className="relative">
+                       {/* Desktop Images */}
                       {/* Journey content - explore.png - Mobile Responsive */}
                       {/* Mobile Images */}
                       <img 
                         src="/mobileexplore.png"
                         alt="Detailed journey exploration" 
-                        className="w-full h-auto block m-0 p-0 md:hidden theme-image-light"
+                        className="w-full h-auto block md:hidden m-0 p-0 theme-image-light"
                         style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
                         width="800"
                         height="600"
@@ -235,7 +236,7 @@ const AboutMorphoverse: NextPage = () => {
                       <img 
                         src="/darkmobileexplore.png"
                         alt="Detailed journey exploration" 
-                        className="w-full h-auto block m-0 p-0 md:hidden theme-image-dark absolute inset-0"
+                        className="w-full h-auto block md:hidden m-0 p-0 theme-image-dark absolute inset-0"
                         style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
                         width="800"
                         height="600"
@@ -252,7 +253,7 @@ const AboutMorphoverse: NextPage = () => {
                       <img 
                         src="/darkexplore.png"
                         alt="Detailed journey exploration" 
-                        className="w-full h-auto hidden md:block m-0 p-0 theme-image-dark absolute inset-0"
+                        className="w-full h-auto hidden md:block m-0 p-0 theme-image-dark"
                         style={{ borderRadius: 0, margin: 0, padding: 0, display: 'block' }}
                         width="1600"
                         height="900"

@@ -138,6 +138,13 @@ const caseStudyCards: CaseStudyCard[] = [
 const CaseStudies: NextPage = () => {
     // State to track the currently selected content
     const [selectedContent, setSelectedContent] = useState(caseStudyCards[0]); // Default to first item
+    // State for slider pagination
+    const [sliderIndex, setSliderIndex] = useState(0);
+    const cardsPerPage = 3;
+    const totalCards = caseStudyCards.length;
+    const totalPages = Math.ceil(totalCards / cardsPerPage);
+    // Get the cards for the current slider page
+    const visibleCards = caseStudyCards.slice(sliderIndex * cardsPerPage, (sliderIndex + 1) * cardsPerPage);
 
     // Helper function to render content paragraphs
     const renderContent = (contentText: string) => {
@@ -329,29 +336,37 @@ const CaseStudies: NextPage = () => {
                     </div>
                 </div>
 
-                {/* Navigation Arrows - Mobile responsive */}
+                {/* Navigation Arrows for slider */}
                 <div className="flex justify-between items-center mb-6 md:mb-8">
-                    <button className="w-8 h-8 md:w-10 md:h-10 bg-theme-bg-secondary rounded-full flex items-center justify-center hover:bg-theme-border transition-colors">
+                    <button
+                        className={`w-8 h-8 md:w-10 md:h-10 bg-theme-bg-secondary rounded-full flex items-center justify-center hover:bg-theme-border transition-colors ${sliderIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={() => sliderIndex > 0 && setSliderIndex(sliderIndex - 1)}
+                        disabled={sliderIndex === 0}
+                    >
                         <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 text-theme-primary" />
                     </button>
-                    <button className="w-8 h-8 md:w-10 md:h-10 bg-theme-bg-secondary rounded-full flex items-center justify-center hover:bg-theme-border transition-colors">
+                    <button
+                        className={`w-8 h-8 md:w-10 md:h-10 bg-theme-bg-secondary rounded-full flex items-center justify-center hover:bg-theme-border transition-colors ${sliderIndex === totalPages - 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={() => sliderIndex < totalPages - 1 && setSliderIndex(sliderIndex + 1)}
+                        disabled={sliderIndex === totalPages - 1}
+                    >
                         <ChevronRight className="w-4 h-4 md:w-6 md:h-6 text-theme-primary" />
                     </button>
                 </div>
 
-                {/* Articles Grid Section - Mobile responsive */}
-                <section className="mb-12 md:mb-16">
-                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 md:mb-8 tracking-wide">
-                    All Articles
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {caseStudyCards.map(card => (
-                      <div key={card.slug} onClick={() => handleCardClick(card.slug)} className="cursor-pointer">
-                        <Card card={card} />
-                      </div>
-                    ))}
-                  </div>
-                </section>
+                                {/* Articles Slider Section - Mobile responsive */}
+                                <section className="mb-12 md:mb-16">
+                                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 md:mb-8 tracking-wide">
+                                        All Articles
+                                    </h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                                        {visibleCards.map(card => (
+                                            <div key={card.slug} onClick={() => handleCardClick(card.slug)} className="cursor-pointer">
+                                                <Card card={card} />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
             </div>
         </div>
     );
